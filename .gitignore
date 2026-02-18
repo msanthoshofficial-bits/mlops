@@ -17,8 +17,7 @@ coverage.xml
 *.log
 Dataset/
 .pytest_cache
-model.h5
+
 mlruns/
-*.h5
 *.pkl
 __pycache__/
