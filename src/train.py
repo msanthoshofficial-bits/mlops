@@ -23,7 +23,7 @@ def train_model():
         # Parameters
         img_size = (224, 224)
         batch_size = 32
-        epochs = 2
+        epochs = 10
         learning_rate = 1e-4
 
         mlflow.log_param("img_size", img_size)
@@ -34,13 +34,21 @@ def train_model():
         # Create Model
         model = create_model(input_shape=img_size + (3,))
         
+        # Callbacks
+        callbacks = [
+            tf.keras.callbacks.EarlyStopping(patience=3, monitor='val_loss', restore_best_weights=True),
+            tf.keras.callbacks.ReduceLROnPlateau(patience=2, monitor='val_loss', factor=0.1),
+            tf.keras.callbacks.ModelCheckpoint("best_model.h5", save_best_only=True, monitor='val_accuracy')
+        ]
+
         # Train
         history = model.fit(
             train_gen,
             steps_per_epoch=train_gen.samples // batch_size,
             epochs=epochs,
             validation_data=val_gen,
-            validation_steps=val_gen.samples // batch_size
+            validation_steps=val_gen.samples // batch_size,
+            callbacks=callbacks
         )
 
         # Log Metrics

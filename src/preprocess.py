@@ -3,9 +3,11 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator
 import os
 
 def get_train_val_generators(base_dir, img_size=(224, 224), batch_size=32):
+    preprocessing_function = tf.keras.applications.mobilenet_v2.preprocess_input
+
     # Using validation_split since data is not pre-split
     train_datagen = ImageDataGenerator(
-        rescale=1./255,
+        preprocessing_function=preprocessing_function,
         rotation_range=40,
         width_shift_range=0.2,
         height_shift_range=0.2,
@@ -15,15 +17,11 @@ def get_train_val_generators(base_dir, img_size=(224, 224), batch_size=32):
         validation_split=0.2 
     )
 
-    # For validation, we don't want augmentation, but we need rescale
-    # Note: When using validation_split, we must use the SAME instance of ImageDataGenerator 
-    # or create a new one with same split validation argument if we want clean validation data?
-    # Actually, standard practice with validation_split in flow_from_directory is to use the same generator or another with validation_split set.
-    # However, usually we want augmentation on train but not on val.
-    # To achieve this with `flow_from_directory` and `subset`:
-    # We can use two generators.
-    
-    test_datagen = ImageDataGenerator(rescale=1./255, validation_split=0.2)
+    # For validation, we don't want augmentation, but we need preprocessing
+    test_datagen = ImageDataGenerator(
+        preprocessing_function=preprocessing_function,
+        validation_split=0.2
+    )
 
     train_generator = train_datagen.flow_from_directory(
         base_dir,

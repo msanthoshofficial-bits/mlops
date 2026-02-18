@@ -6,3 +6,4 @@ dvc
 pytest
 requests
 Pillow
+python-multipart
