@@ -138,13 +138,41 @@ To retrain the model with new data or hyperparameters:
 ```bash
 python -m src.train
 ```
-- **Output**: Generates `model.h5` (Best Model) in the root directory.
-- **Logging**: Metrics are logged to local MLflow (`mlruns/`).
 
-**Key Features**:
-- **EarlyStopping**: Prevents overfitting.
-- **ReduceLROnPlateau**: Optimizes convergence.
-- **ModelCheckpoint**: Saves only the best performing model.
+**Training Features**:
+- **EarlyStopping**: Prevents overfitting by halting training if validation loss doesn't improve.
+- **ReduceLROnPlateau**: Automatically reduces learning rate for optimal convergence.
+- **ModelCheckpoint**: Saves only the best performing model as `model.h5`.
+
+**Generated Artifacts** (saved to `artifacts/` and logged to MLflow):
+
+| Artifact | Description |
+| :--- | :--- |
+| `loss_curve.png` | Training & Validation loss per epoch |
+| `accuracy_curve.png` | Training & Validation accuracy per epoch |
+| `confusion_matrix.png` | Confusion matrix on the validation set |
+| `classification_report.txt` | Precision, Recall, F1-Score per class |
+| `model.h5` | Best performing model weights |
+
+---
+
+## 📈 MLflow — Experiment Tracking
+
+MLflow tracks every training run with parameters, metrics, and artifacts.
+
+### Start MLflow UI
+```bash
+python -m mlflow ui
+```
+Then open **http://localhost:5000** in your browser.
+
+### What You'll See
+- **Runs Table**: Compare training runs side-by-side (accuracy, loss, etc.)
+- **Metrics Charts**: Per-epoch loss and accuracy curves plotted automatically
+- **Artifacts**: Download `confusion_matrix.png`, `loss_curve.png`, etc.
+- **Parameters**: `epochs`, `batch_size`, `learning_rate`, `base_model`
+
+> **Tip**: After training, click on a run → **Artifacts** tab to view the confusion matrix and training curves directly in the browser.
 
 ---
 

@@ -9,3 +9,5 @@ Pillow
 python-multipart
 prometheus-fastapi-instrumentator
 httpx
+matplotlib
+scikit-learn
