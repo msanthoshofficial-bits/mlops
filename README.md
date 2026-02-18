@@ -176,21 +176,48 @@ Then open **http://localhost:5000** in your browser.
 
 ---
 
-## 🐳 Deployment (Docker)
+## �️ Model Serving (Local)
+
+Start the FastAPI inference server locally:
+
+```bash
+python -m uvicorn app.main:app --reload
+```
+
+Once running, the following endpoints are available:
+
+| Endpoint | URL | Description |
+| :--- | :--- | :--- |
+| **Swagger UI** | [http://localhost:8000/docs](http://localhost:8000/docs) | Interactive API documentation |
+| **ReDoc** | [http://localhost:8000/redoc](http://localhost:8000/redoc) | Alternative API docs |
+| **Predict** | `POST http://localhost:8000/predict` | Upload an image for classification |
+| **Health** | `GET http://localhost:8000/health` | Health check |
+| **Metrics** | `GET http://localhost:8000/metrics` | Prometheus metrics |
+
+> **Note**: Use `python -m uvicorn` instead of `uvicorn` directly if you get a "command not found" error.
+
+---
+
+## �🐳 Deployment (Docker)
 
 ### Build & Run Locally
+
 ```bash
 docker-compose up --build -d
 ```
 
 ### Run Production Image
+
 Pull the pre-built image from Docker Hub (updated via CI/CD):
+
 ```bash
 docker run -p 8000:8000 msanthoshofficial/cat-dog-classifier:latest
 ```
 
 ### Verification
+
 Run the smoke test to ensure the API, Model, and Metrics are healthy:
+
 ```bash
 python smoke_test.py
 ```
