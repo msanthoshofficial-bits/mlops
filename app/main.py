@@ -13,12 +13,16 @@ from src.model import create_model
 
 import time
 import logging
+from prometheus_fastapi_instrumentator import Instrumentator
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 app = FastAPI(title="Cats vs Dogs Classification API")
+
+# Instrumentator
+Instrumentator().instrument(app).expose(app)
 
 # Metrics storage
 metrics = {

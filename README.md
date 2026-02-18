@@ -95,11 +95,23 @@ c:/dev/mlops
 
 ## CI/CD Pipeline
 
-The project uses GitHub Actions (`.github/workflows/ci.yml`) for:
-- **CI**: Runs unit tests and builds Docker image on push to `master`.
-- **CD**: Deployment steps can be enabled by configuring Docker Hub credentials (`DOCKER_USERNAME`, `DOCKER_PASSWORD`) in GitHub Secrets.
+- **Workflow**: `.github/workflows/pipeline.yml`
+- **CI**: 
+  - Verification of code quality with `pytest`
+  - Git LFS handling for model artifacts
+  - Docker image build
+- **Artifacts**: Model (`model.h5`) is uploaded as a workflow artifact.
+- **CD**: 
+  - Deployment to Docker Hub/GHCR on push to `main`.
+  - Deployment trigger via Docker Compose.
+- **Secrets Required**:
+  - `DOCKER_USERNAME`
+  - `DOCKER_PASSWORD`
 
 ## Monitoring
 
 - **Application Logs**: Standard output logs for every request.
-- **Metrics**: `/metrics` endpoint exposes Request Count and Average Latency.
+- **Prometheus Metrics**: `http://localhost:8000/metrics` exposes:
+  - Request Count
+  - Latency
+  - Custom business metrics (via `prometheus-fastapi-instrumentator`)

@@ -7,3 +7,5 @@ pytest
 requests
 Pillow
 python-multipart
+prometheus-fastapi-instrumentator
+httpx

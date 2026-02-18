@@ -41,11 +41,24 @@ def test_prediction():
         print(f"Prediction check failed: {e}")
         return False
 
+def test_metrics():
+    try:
+        response = requests.get(f"{API_URL}/metrics")
+        if response.status_code == 200:
+            print("Metrics check passed.")
+            return True
+        else:
+            print(f"Metrics check failed: {response.status_code}")
+            return False
+    except Exception as e:
+        print(f"Metrics check failed: {e}")
+        return False
+
 if __name__ == "__main__":
     print("Waiting for service to start...")
     time.sleep(5) # Give it a moment if started just now
     
-    if test_health() and test_prediction():
+    if test_health() and test_prediction() and test_metrics():
         print("Smoke tests passed!")
         sys.exit(0)
     else:
