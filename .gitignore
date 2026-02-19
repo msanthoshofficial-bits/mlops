@@ -21,3 +21,4 @@ Dataset/
 mlruns/
 *.pkl
 __pycache__/
+/model.h5
