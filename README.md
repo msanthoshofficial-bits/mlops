@@ -293,3 +293,4 @@ The application is instrumented with `prometheus-fastapi-instrumentator`.
 ## 📜 License
 
 Distributed under the MIT License. See `LICENSE` for more information.
+C
