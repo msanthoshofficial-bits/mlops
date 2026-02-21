@@ -7,6 +7,9 @@
 ![CI/CD](https://github.com/msanthoshofficial/mlops/actions/workflows/pipeline.yml/badge.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 
+# DEMO Link
+[https://youtu.be/S07EZ_uwQAo?si=rtvJuH6w_ZvxMa5e](https://youtu.be/S07EZ_uwQAo?si=rtvJuH6w_ZvxMa5e)
+
 # Group 46
 
 ## Members
